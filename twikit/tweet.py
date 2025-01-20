@@ -77,6 +77,8 @@ class Tweet:
         Related tweets.
     hashtags: list[:class:`str`]
         Hashtags included in the tweet text.
+    symbols: list[:class:`str`]
+        Symbols included in the tweet text.
     has_card : :class:`bool`
         Indicates if the tweet contains a card.
     thumbnail_title : :class:`str` | None
@@ -157,12 +159,17 @@ class Tweet:
             entity_set = note_tweet_results[0]['result']['entity_set']
             self.urls: list = entity_set.get('urls')
             hashtags = entity_set.get('hashtags', [])
+            symbols = entity_set.get('symbols', [])
         else:
             self.urls: list = legacy['entities'].get('urls')
             hashtags = legacy['entities'].get('hashtags', [])
+            symbols = legacy['entities'].get('symbols', [])
 
         self.hashtags: list[str] = [
             i['text'] for i in hashtags
+        ]
+        self.symbols: list[str] = [
+            i['text'] for i in symbols
         ]
 
         self.community_note = None
