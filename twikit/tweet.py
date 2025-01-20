@@ -171,6 +171,11 @@ class Tweet:
         self.symbols: list[str] = [
             i['text'] for i in symbols
         ]
+        self.all_symbols: list[tuple[tuple[int, int], str]] = []
+        for symbol in symbols:
+            self.all_symbols.append((tuple(symbol['indices']), f"${symbol['text']}"))
+        for hashtag in hashtags:
+            self.all_symbols.append((tuple(hashtag['indices']), f"#{hashtag['text']}"))
 
         self.community_note = None
         if 'birdwatch_pivot' in data:
